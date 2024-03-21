@@ -18,12 +18,18 @@ for (let i = 1; i < 10; i++) {
 
         if (dead === 10) {
             alert("Победа!");
-            location.reload(true);
+            dead = 0;
+            lost = 0;
+            counterDead.textContent = dead;
+            counterLost.textContent = lost;
         };
 
         if (lost === 5) {
             alert("Вы проиграли!");
-            location.reload(true);
+            dead = 0;
+            lost = 0;
+            counterDead.textContent = dead;
+            counterLost.textContent = lost;
         };
     };
 }ж
