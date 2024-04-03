@@ -14,11 +14,9 @@ fontSizeControls.forEach(control => {
         const booksize = this.dataset.size;
 
         book.classList.remove('book_fs-big', 'book_fs-small');
-        if (booksize === 'big') {
-            book.classList.add('book_fs-big');
-        } else if (booksize === 'small') {
-            book.classList.add('book_fs-small');
-        }
+        if (booksize) {
+            book.classList.add(`book_fs-${booksize}`);
+            }
     });
 });
 

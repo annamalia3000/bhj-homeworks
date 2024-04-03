@@ -1,8 +1,9 @@
 const textBlocks = document.querySelectorAll('.rotator__case');
 let currentIndex = 0;
 let initialSpeed = parseInt(textBlocks[currentIndex].dataset.speed);
+let timerId;
 
-const changeText = (currentSpeed) => {
+const changeText = () => {
     textBlocks.forEach((text, index) => {
         const color = text.dataset.color;
         text.style.color = color;
@@ -11,10 +12,11 @@ const changeText = (currentSpeed) => {
     });
 
     currentIndex = ++currentIndex % textBlocks.length;
-    currentSpeed = parseInt(textBlocks[currentIndex].dataset.speed);
+    initialSpeed = parseInt(textBlocks[currentIndex].dataset.speed);
+
+    clearInterval(timerId);
+
+    timerId = setTimeout(changeText, initialSpeed);
 };
 
-
-setInterval(() => {
-    changeText(initialSpeed);
-},initialSpeed);
+timerId = setTimeout(changeText, initialSpeed);
