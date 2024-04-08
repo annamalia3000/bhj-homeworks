@@ -1,24 +1,3 @@
-// const tips = document.querySelectorAll('.has-tooltip');
-
-// tips.forEach(tip => {
-//     tip.addEventListener('click', e => {
-//         e.preventDefault(); 
-
-//         tip.insertAdjacentHTML('afterEnd', `<div class="tooltip" >${tip.getAttribute('title')}</div>`);
-
-//         const tooltip = tip.nextElementSibling;
-
-//         tooltip.classList.toggle('tooltip_active');
-
-//         document.addEventListener('click', function closeTooltip(event) {
-//             if (!tooltip.contains(event.target) && event.target !== tip) {
-//                 tooltip.remove(); 
-//                 document.removeEventListener('click', closeTooltip); 
-//             }
-//         });
-//     });
-// });
-
 const tips = document.querySelectorAll('.has-tooltip');
 
 tips.forEach(tip => {
