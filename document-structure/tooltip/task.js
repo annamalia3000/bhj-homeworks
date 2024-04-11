@@ -1,25 +1,29 @@
-const tips = document.querySelectorAll('.has-tooltip');
+document.body.addEventListener('click', event => {
+    const tip = event.target.closest('.has-tooltip');
 
-tips.forEach(tip => {
-    tip.addEventListener('click', e => {
-        e.preventDefault(); 
+    if (!tip) return;
 
-        let tooltip = tip.nextElementSibling;
-        if (!tooltip || !tooltip.classList.contains('tooltip')) {
-            tip.insertAdjacentHTML('afterEnd', `<div class="tooltip" data-position="top">${tip.getAttribute('title')}</div>`);
-            tooltip = tip.nextElementSibling;
+    event.preventDefault();
+
+    if (tip.classList.contains('tooltip-added')) {
+        const tooltip = document.querySelector('.tooltip');
+        tooltip.remove();
+        tip.classList.remove('tooltip-added');
+        return;
+    }
+
+    tip.insertAdjacentHTML('afterEnd', `<div class="tooltip">${tip.getAttribute('title')} </div>`);
+    const tooltip = document.querySelector('.tooltip');
+    tooltip.classList.add('tooltip_active');
+    tip.classList.add('tooltip-added');
+
+    function closeTooltip(event) {
+        if (!tooltip.contains(event.target) && event.target !== tip) {
+            tooltip.remove();
+            tip.classList.remove('tooltip-added');
+            document.removeEventListener('click', closeTooltip);
         }
+    }
 
-        tooltip.classList.toggle('tooltip_active');
-
-        document.addEventListener('click', function closeTooltip(event) {
-            if (!tooltip.contains(event.target) && event.target !== tip) {
-                tooltip.remove(); 
-                document.removeEventListener('click', closeTooltip); 
-            }
-        });
-    });
+    document.addEventListener('click', closeTooltip);
 });
-
-//не показываются подсказки у последних двух элементов(в html строки добавляются)
-//как правильно реализовать позиционирование 
