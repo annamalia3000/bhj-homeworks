@@ -3,33 +3,48 @@ const btnAdd = document.getElementById('tasks__add');
 const taskList = document.getElementById('tasks__list');
 const taskInput = document.getElementById('task__input');
 
-const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 window.addEventListener('load', () => {
-    if (savedTasks.length !== 0) {
-        savedTasks.forEach(task => {
-            taskList.insertAdjacentHTML('beforeEnd', task);
-        });
-    }
+    restoreTasksFromLocalStorage();
 });
+
+function updateTasksInLocalStorage() {
+    const taskTexts = [...taskList.querySelectorAll('.task__title')].map(task => task.textContent);
+    localStorage.setItem('tasks', JSON.stringify(taskTexts));
+}
+
+function restoreTasksFromLocalStorage() {
+    savedTasks.forEach(taskText => {
+        const taskHTML = `<div class="task">
+                            <div class="task__title">
+                                ${taskText}
+                            </div>
+                            <a href="#" class="task__remove">&times;</a>
+                          </div>`;
+        taskList.insertAdjacentHTML('beforeEnd', taskHTML);
+    });
+}
 
 btnAdd.addEventListener('click', e => {
     e.preventDefault();
 
-    if (taskInput.value.trim().length !== 0) {
+    const taskInputValue = taskInput.value.trim();
+
+    if (taskInput.length !== 0) {
         const taskHTML = `<div class="task">
                             <div class="task__title">
-                                ${taskInput.value.trim()}
+                                ${taskInputValue}
                             </div>
                             <a href="#" class="task__remove">&times;</a>
                           </div>`;
         taskList.insertAdjacentHTML('beforeEnd', taskHTML);
         
-        savedTasks.push(taskHTML);
-        localStorage.setItem('tasks', JSON.stringify(savedTasks));
-        console.log(savedTasks)
+        savedTasks.push(taskInputValue);
+        updateTasksInLocalStorage();
         
         form.reset();
+    
     }
 });
 
@@ -39,11 +54,8 @@ taskList.addEventListener('click', e => {
         const taskToRemove = e.target.closest('.task').outerHTML; 
         e.target.closest('.task').remove();
         
-        const updatedTasks = savedTasks.filter(task => task !== taskToRemove);
+        savedTasks = savedTasks.filter(task => task !== taskToRemove);
         
-        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-        console.log(updatedTasks);
-    }
+        updateTasksInLocalStorage();
+    };
 });
-
-// //при перезагрузке страницы задачи сохраняются, но не получется обновить localStorage после удаления задач

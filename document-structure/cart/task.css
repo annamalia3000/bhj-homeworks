@@ -1,6 +1,16 @@
 body {
   font-family: Arial;
 }
+
+.btn__clear {
+  background: blue;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
 .cart__products {
   display: flex;
   justify-content: center;
