@@ -7,4 +7,13 @@ textarea {
   font-family: Golos, Arial, sans-serif;
   border: 1px solid #e2e2e2;
   box-sizing: border-box;
+
+  position: relative;
+}
+
+.btn {
+  display: flex;
+  position: absolute;
+  margin-left: 313px;
+  margin-top: -15px;
 }
