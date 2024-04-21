@@ -8,6 +8,7 @@ function setCookie(name, value) {
 function closeModal() {
     modal.classList.remove('modal_active');
     setCookie('modalClosed', true);
+    console.log(document.cookie)
 };
 
 popUp.addEventListener('click', () => {
@@ -17,7 +18,7 @@ popUp.addEventListener('click', () => {
 
 window.addEventListener('load', () => {
     const cookies = document.cookie.split(';');
-    const modalClosed = cookies.some(cookie => cookie.trim().startsWith('modalClosed='));
+    const modalClosed = cookies.some(cookie => cookie.trim().startsWith('modalClosed'));
 
     if (!modalClosed) {
         modal.classList.add('modal_active');
